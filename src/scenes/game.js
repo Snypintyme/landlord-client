@@ -13,14 +13,14 @@ export default class Game extends Phaser.Scene {
         //this.scale.refresh();
 
         for (let i = 1; i <= 13; ++i) {
-            this.load.image(i + "_of_diamonds", "src/assets/cards/" + i + "_of_diamonds.png");
-            this.load.image(i + "_of_clubs", "src/assets/cards/" + i + "_of_clubs.png");
-            this.load.image(i + "_of_hearts", "src/assets/cards/" + i + "_of_hearts.png");
-            this.load.image(i + "_of_spades", "src/assets/cards/" + i + "_of_spades.png");
+            this.load.image(i + "_of_diamonds", "../assets/cards/" + i + "_of_diamonds.png");
+            this.load.image(i + "_of_clubs", "../assets/cards/" + i + "_of_clubs.png");
+            this.load.image(i + "_of_hearts", "../assets/cards/" + i + "_of_hearts.png");
+            this.load.image(i + "_of_spades", "../assets/cards/" + i + "_of_spades.png");
         }
-        this.load.image("black_joker", "src/assets/cards/black_joker.png");
-        this.load.image("colour_joker", "src/assets/cards/colour_joker.png");
-        this.load.image("back", "src/assets/cards/back.png");
+        this.load.image("black_joker", "../assets/cards/black_joker.png");
+        this.load.image("colour_joker", "../assets/cards/colour_joker.png");
+        this.load.image("back", "../assets/cards/back.png");
     }
 
     create() {
