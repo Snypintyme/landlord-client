@@ -18,7 +18,7 @@ export default class Game extends Phaser.Scene {
             this.load.image(i + "_of_hearts", "../assets/cards/" + i + "_of_hearts.png");
             this.load.image(i + "_of_spades", "../assets/cards/" + i + "_of_spades.png");
         }
-        this.load.image("black_joker", "../assets/cards/black_joker.png");
+        this.load.image("black_joker", "/src/assets/cards/black_joker.png");
         this.load.image("colour_joker", "src/assets/cards/colour_joker.png");
         this.load.image("back", "https://imgur.com/Xr3Wl7N");
     }
