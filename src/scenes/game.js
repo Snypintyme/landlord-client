@@ -41,8 +41,12 @@ export default class Game extends Phaser.Scene {
             if (this.waitingText !== null) this.waitingText.destroy();
             this.waitingText = this.add.text(690, 420, "Waiting for players... " + data.numPlayers + "/3").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
         })
-        this.socket.on("playerLeft", (playerIndex) => {
-            if (this.playerNum > playerIndex) --this.playerNum; // come back, dosent work as intended
+        this.socket.on("playerLeft", (data) => {
+            if (this.waitingText !== null) {
+                this.waitingText.destroy();
+                this.waitingText = this.add.text(690, 420, "Waiting for players... " + data.numPlayers + "/3").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
+            }
+            //if (this.playerNum > playerIndex) --this.playerNum; // come back, dosent work as intended
         })
 
         this.socket.on("gameStart", (data) => {
