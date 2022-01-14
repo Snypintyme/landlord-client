@@ -21,6 +21,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
+        this.waitingText;
         this.gameStart = false;
         this.gameData = {
             playerNum: null,
@@ -35,6 +36,9 @@ export default class Game extends Phaser.Scene {
         this.socket = io("https://landlordserver.herokuapp.com"); // https://landlordserver.herokuapp.com
         this.socket.on(('connect'), () => {
             console.log("Connected to server");
+        })
+        this.socket.on("waitingForPlayers", (data) => {
+            this.waitingText = this.add.text(690, 420, "Waiting for players... " + data.numPlayers + "/3").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
         })
         this.socket.on("playerLeft", (playerIndex) => {
             if (this.playerNum > playerIndex) --this.playerNum; // come back, dosent work as intended
@@ -142,8 +146,6 @@ export default class Game extends Phaser.Scene {
         this.socket.on("gameOver", ({ message }) => {
             this.gameOverText = this.add.text(690, 420, message).setFontSize(50).setFontFamily("Comic Sans MS").setColor("#123456").disableInteractive();
         })
-
-        this.waitingText = this.add.text(690, 420, "Waiting for players...").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
     }
 
     update() {
