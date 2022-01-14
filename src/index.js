@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Game from "./scenes/game.js"
 
 const config = {
+    debug: true,
     type: Phaser.AUTO,
     antialias: true,
     autoCenter: true,
