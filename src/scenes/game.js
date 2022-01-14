@@ -21,7 +21,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        this.waitingText;
+        this.waitingText = null;
         this.gameStart = false;
         this.gameData = {
             playerNum: null,
@@ -38,6 +38,7 @@ export default class Game extends Phaser.Scene {
             console.log("Connected to server");
         })
         this.socket.on("waitingForPlayers", (data) => {
+            if (this.waitingText !== null) this.waitingText.destroy();
             this.waitingText = this.add.text(690, 420, "Waiting for players... " + data.numPlayers + "/3").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
         })
         this.socket.on("playerLeft", (playerIndex) => {
