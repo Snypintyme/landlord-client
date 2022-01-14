@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
             lastPlay: []
         }
 
-        this.socket = io("http://localhost:3000"); // https://landlordserver.herokuapp.com
+        this.socket = io("https://landlordserver.herokuapp.com"); // https://landlordserver.herokuapp.com
         this.socket.on(('connect'), () => {
             console.log("Connected to server");
         })
