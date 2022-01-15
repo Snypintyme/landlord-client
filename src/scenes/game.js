@@ -69,8 +69,30 @@ export default class Game extends Phaser.Scene {
                 this.gameData.hand.push(makeCard(this, sortedCards[i].rank, sortedCards[i].suit, 1, 250 + (i * 50), 700));
             }
 
-            this.playButton = this.add.text(1350, 650, "Play Cards").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").setInteractive();
-            this.passButton = this.add.text(1350, 710, "Pass Turn").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").setInteractive();
+            this.playButton = this.add.text(1350, 650, "Play Cards").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").setInteractive()
+                .on("pointerdown", () => {
+                    let cards = this.gameData.hand.filter((card) => card.data.values.selected);
+                    this.gameData.selectedCards = [];
+                    for (let i = 0; i < cards.length; ++i) {
+                        this.gameData.selectedCards.push({
+                            rank: cards[i].data.values.rank,
+                            suit: cards[i].data.values.suit
+                        })
+                    }
+
+                    this.gameData.selectedCards = this.gameData.selectedCards.sort((first, second) => {
+                        if (first.rank === second.rank) {
+                            return first.suit - second.suit;
+                        }
+                        return first.rank - second.rank;
+                    });
+                    this.socket.emit("play", {
+                        cards: this.gameData.selectedCards
+                    });
+                });
+
+            this.passButton = this.add.text(1350, 710, "Pass Turn").setFontSize(30).setFontFamily("Comic Sans MS").setColor("#000000").setInteractive()
+                .on("pointerdown", () => this.socket.emit("pass"));
 
             this.teamText = this.add.text(50, 20, (data.landlord === this.gameData.playerNum) ? "You are the Landlord" : "You are a Peasant").setFontSize(24).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
             this.landlordCardText = this.add.text(80, 60, "Landlord Card").setFontSize(18).setFontFamily("Comic Sans MS").setColor("#000000").disableInteractive();
@@ -121,29 +143,6 @@ export default class Game extends Phaser.Scene {
                         currentlyOver[0].y -= 50;
                     }
                     currentlyOver[0].data.values.selected = !currentlyOver[0].data.values.selected;
-                } else if (currentlyOver[0].type === "Text") {
-                    if (currentlyOver[0]._text === "Play Cards") {
-                        let cards = this.gameData.hand.filter((card) => card.data.values.selected);
-                        this.gameData.selectedCards = [];
-                        for (let i = 0; i < cards.length; ++i) {
-                            this.gameData.selectedCards.push({
-                                rank: cards[i].data.values.rank,
-                                suit: cards[i].data.values.suit
-                            })
-                        }
-
-                        this.gameData.selectedCards = this.gameData.selectedCards.sort((first, second) => {
-                            if (first.rank === second.rank) {
-                                return first.suit - second.suit;
-                            }
-                            return first.rank - second.rank;
-                        });
-                        this.socket.emit("play", {
-                            cards: this.gameData.selectedCards
-                        });
-                    } else {
-                        this.socket.emit("pass");
-                    }
                 }
             }
         })
