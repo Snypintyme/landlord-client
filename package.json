@@ -2,10 +2,10 @@
   "name": "phaser3-project-template",
   "version": "1.1.2",
   "description": "A Phaser 3 Project Template",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "webpack-dev-server --open",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -21,12 +21,17 @@
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
+    "@babel/preset-typescript": "^7.21.5",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^8.40.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
     "raw-loader": "^4.0.2",
     "terser-webpack-plugin": "^5.3.8",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",
     "webpack-dev-server": "^4.15.0",
