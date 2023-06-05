@@ -104,6 +104,8 @@ export default class Game extends Phaser.Scene {
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .setInteractive()
+        .on('pointerover', () => this.playButton.setColor('#ff0000'))
+        .on('pointerout', () => this.playButton.setColor('#000000'))
         .on('pointerdown', () => {
           let cards = this.gameData.hand.filter((card: Phaser.GameObjects.Image) => card.data.values.selected);
           this.gameData.selectedCards = [];
@@ -133,6 +135,8 @@ export default class Game extends Phaser.Scene {
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .setInteractive()
+        .on('pointerover', () => this.passButton.setColor('#ff0000'))
+        .on('pointerout', () => this.passButton.setColor('#000000'))
         .on('pointerdown', () => this.socket.emit('pass'));
 
       this.teamText = this.add
@@ -154,15 +158,7 @@ export default class Game extends Phaser.Scene {
         .setColor('#000000')
         .disableInteractive();
       console.log(this.gameData.lardlordCard.rank, this.gameData.lardlordCard.suit);
-      this.landlordCard = makeCard(
-        this,
-        this.gameData.lardlordCard.rank,
-        this.gameData.lardlordCard.suit,
-        2,
-        135,
-        145,
-        'landlord car'
-      );
+      this.landlordCard = makeCard(this, this.gameData.lardlordCard.rank, this.gameData.lardlordCard.suit, 2, 135, 145);
 
       this.nametag = this.add
         .text(700, 830, 'Player ' + (this.gameData.playerNum + 1))
@@ -176,7 +172,7 @@ export default class Game extends Phaser.Scene {
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .disableInteractive();
-      this.opponent1_card = makeCard(this, 20, 0, 3, 670, 170, 'opponent1 card');
+      this.opponent1_card = makeCard(this, 20, 0, 3, 670, 170);
       this.opponent2_nametag = this.add
         .text(1200, 50, 'Player ' + (((this.gameData.playerNum + 2) % 3) + 1))
         .setFontSize(30)

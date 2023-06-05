@@ -4,15 +4,14 @@ export default function makeCard(
   suit: number,
   type: number,
   x: number,
-  y: number,
-  desc?: string
+  y: number
 ): Phaser.GameObjects.Image {
   let sprite = rank + '_of_';
   if (rank === 20) {
     sprite = 'back';
-  } else if (rank === 14 && suit === 1) {
+  } else if (rank === 14) {
     sprite = 'black_joker';
-  } else if (rank === 14 && suit === 2) {
+  } else if (rank === 15) {
     sprite = 'colour_joker';
   } else if (suit === 1) {
     sprite += 'diamonds';
@@ -24,9 +23,6 @@ export default function makeCard(
     sprite += 'spades';
   }
 
-  if (desc) {
-    console.log(desc, sprite);
-  }
   let card = scene.add.image(x, y, sprite);
   if (type === 1) {
     card.setScale(0.25, 0.25).setInteractive();
