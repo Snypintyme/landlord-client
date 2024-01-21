@@ -2,23 +2,23 @@ import io, { Socket } from 'socket.io-client';
 import makeCard from '../util/makeCard';
 
 export default class Game extends Phaser.Scene {
-  waitingText: Phaser.GameObjects.Text | null;
-  gameStart: boolean;
-  gameData: Record<string, any>;
-  socket: Socket;
+  waitingText!: Phaser.GameObjects.Text | null;
+  gameStart!: boolean;
+  gameData!: Record<string, any>;
+  socket!: Socket;
 
-  playButton: Phaser.GameObjects.Text;
-  passButton: Phaser.GameObjects.Text;
-  teamText: Phaser.GameObjects.Text;
-  landlordCardText: Phaser.GameObjects.Text;
-  landlordCardDesc: Phaser.GameObjects.Text;
-  landlordCard: Phaser.GameObjects.Image;
-  nametag: Phaser.GameObjects.Text;
-  opponent1_nametag: Phaser.GameObjects.Text;
-  opponent1_card: Phaser.GameObjects.Image;
-  opponent2_nametag: Phaser.GameObjects.Text;
-  opponent2_card: Phaser.GameObjects.Image;
-  gameOverText: Phaser.GameObjects.Text;
+  playButton!: Phaser.GameObjects.Text;
+  passButton!: Phaser.GameObjects.Text;
+  teamText!: Phaser.GameObjects.Text;
+  landlordCardText!: Phaser.GameObjects.Text;
+  landlordCardDesc!: Phaser.GameObjects.Text;
+  landlordCard!: Phaser.GameObjects.Image;
+  nametag!: Phaser.GameObjects.Text;
+  opponentOneNametag!: Phaser.GameObjects.Text;
+  opponentOneCard!: Phaser.GameObjects.Image;
+  opponentTwoNametag!: Phaser.GameObjects.Text;
+  opponentTwoCard!: Phaser.GameObjects.Image;
+  gameOverText!: Phaser.GameObjects.Text;
 
   constructor() {
     super({
@@ -166,20 +166,20 @@ export default class Game extends Phaser.Scene {
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .disableInteractive();
-      this.opponent1_nametag = this.add
+      this.opponentOneNametag = this.add
         .text(620, 50, 'Player ' + (((this.gameData.playerNum + 1) % 3) + 1))
         .setFontSize(30)
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .disableInteractive();
-      this.opponent1_card = makeCard(this, 20, 0, 3, 670, 170);
-      this.opponent2_nametag = this.add
+      this.opponentOneCard = makeCard(this, 20, 0, 3, 670, 170);
+      this.opponentTwoNametag = this.add
         .text(1200, 50, 'Player ' + (((this.gameData.playerNum + 2) % 3) + 1))
         .setFontSize(30)
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .disableInteractive();
-      this.opponent2_card = makeCard(this, 20, 0, 3, 1250, 170);
+      this.opponentTwoCard = makeCard(this, 20, 0, 3, 1250, 170);
     });
 
     this.socket.on('invalidPlay', () => {
@@ -240,16 +240,16 @@ export default class Game extends Phaser.Scene {
     if (this.gameStart) {
       if (this.gameData.turn === this.gameData.playerNum) {
         this.nametag.setColor('#ff0000');
-        this.opponent1_nametag.setColor('#000000');
-        this.opponent2_nametag.setColor('#000000');
+        this.opponentOneNametag.setColor('#000000');
+        this.opponentTwoNametag.setColor('#000000');
       } else if (this.gameData.turn === (this.gameData.playerNum + 1) % 3) {
         this.nametag.setColor('#000000');
-        this.opponent1_nametag.setColor('#ff0000');
-        this.opponent2_nametag.setColor('#000000');
+        this.opponentOneNametag.setColor('#ff0000');
+        this.opponentTwoNametag.setColor('#000000');
       } else {
         this.nametag.setColor('#000000');
-        this.opponent1_nametag.setColor('#000000');
-        this.opponent2_nametag.setColor('#ff0000');
+        this.opponentOneNametag.setColor('#000000');
+        this.opponentTwoNametag.setColor('#ff0000');
       }
     }
   }
