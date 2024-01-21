@@ -107,6 +107,9 @@ export default class Game extends Phaser.Scene {
         .on('pointerover', () => this.playButton.setColor('#ff0000'))
         .on('pointerout', () => this.playButton.setColor('#000000'))
         .on('pointerdown', () => {
+          if (this.gameData.turn !== this.gameData.playerNum) {
+            return;
+          }
           let cards = this.gameData.hand.filter((card: Phaser.GameObjects.Image) => card.data.values.selected);
           this.gameData.selectedCards = [];
           for (let i = 0; i < cards.length; ++i) {
