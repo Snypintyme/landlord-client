@@ -1,5 +1,6 @@
 import io, { Socket } from 'socket.io-client';
 import makeCard from '../util/makeCard';
+import { isProd } from '../config';
 
 export default class Game extends Phaser.Scene {
   waitingText!: Phaser.GameObjects.Text | null;
@@ -19,6 +20,7 @@ export default class Game extends Phaser.Scene {
   opponentTwoNametag!: Phaser.GameObjects.Text;
   opponentTwoCard!: Phaser.GameObjects.Image;
   gameOverText!: Phaser.GameObjects.Text;
+  readmeText!: Phaser.GameObjects.Text;
 
   constructor() {
     super({
@@ -51,7 +53,14 @@ export default class Game extends Phaser.Scene {
       lastPlay: [],
     };
 
-    this.socket = io('http://localhost:3000');
+    this.readmeText = this.add
+        .text(900, 20, 'See https://github.com/Snypintyme/landlord-client for rules and more information')
+        .setFontSize(18)
+        .setFontFamily('Comic Sans MS')
+        .setColor('#000000')
+        .disableInteractive();
+
+    this.socket = io(isProd() ? 'https://landlord-backend.fly.dev/' : 'http://localhost:3000');
     this.socket.on('connect', () => {
       console.log('Connected to server');
     });
@@ -82,9 +91,7 @@ export default class Game extends Phaser.Scene {
       this.gameStart = true;
       this.gameData.playerNum = data.playerNum;
       this.gameData.landlord = data.landlord;
-      console.log('game start');
       this.gameData.lardlordCard = data.landlordCard;
-      console.log(this.gameData.lardlordCard);
       this.gameData.turn = data.landlord;
 
       let sortedCards = data.hand.sort((first: Record<string, any>, second: Record<string, any>) => {
@@ -160,7 +167,6 @@ export default class Game extends Phaser.Scene {
         .setFontFamily('Comic Sans MS')
         .setColor('#000000')
         .disableInteractive();
-      console.log(this.gameData.lardlordCard.rank, this.gameData.lardlordCard.suit);
       this.landlordCard = makeCard(this, this.gameData.lardlordCard.rank, this.gameData.lardlordCard.suit, 2, 135, 145);
 
       this.nametag = this.add

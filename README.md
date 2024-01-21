@@ -2,7 +2,7 @@
 
 Online Multiplayer Card Game
 
-The game functional but still in an incomplete state. Many features and improvements are planned and will be added in the future.
+The core game is functional but is not polished. Many features and improvements are planned and will be added in the future.
 
 ## Running the game
 
@@ -12,11 +12,13 @@ To run locally, start the [backend](https://github.com/Snypintyme/landlord-backe
 npm start
 ```
 
-The game requires 3 players, and opening 3 separate tabs will work
+To play online, visit https://landlord-client.fly.dev/
+
+> The game requires 3 players. Opening 3 separate tabs will work. If the game bugs out or you want to reset the game, closing all tabs and reopening them will restart the game.
 
 ## Gameplay
 
-This game is a version of a popular Chinese card game. This version supports 3 players. Each round, one player is the 'landlord' and the other two players team up as the 'peasants'. The objective is to play out all of your cards in valid combinations. If the landlord plays out all their cards, the landlord wins, or if any one of the peasants plays out all their cards, the peasants win. Your team will be shown in the top left corner.
+This game is a recreation of a popular Chinese card game [Dou dizhu](https://en.wikipedia.org/wiki/Dou_dizhu) with slight differences in gameplay and terminology. All rules for this version of the game are listed below. This version supports 3 players. Each round, one player is the `landlord` and the other two players team up as the `peasants`. The objective is to play out all of your cards in valid combinations. If the landlord plays out all their cards, the landlord wins, or if any one of the peasants plays out all their cards, the peasants win. Your team will be shown in the top left corner.
 
 ### Players, Cards and Deal
 
